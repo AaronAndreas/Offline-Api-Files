@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<title id='doc-name'>YSWAKE-DOC</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/common.css">
+	<link rel="stylesheet" type="text/css" href="./css/jsonViewer.css">
+	<script src="./js/jquery-3.1.1.min.js"></script>
+	<script src="./js/jsonViewer.js"></script> 
+	<script src="./api_data.json"></script>
+	<script type="text/javascript">
+	$(function(){
+		var	menu='';
+		for(var i in api_lists.apis)
+		{
+			menu+='<li><a href="#" onclick="show('+i+',this)">'+api_lists.apis[i].api_name+'</a></li>';
+		}
+		$('#doc-name').html(api_lists.doc_name);
+		$('#menu').html(menu);
+		$('#menu > li > a').first().click();
+	});
+	function show(item,obj)
+	{
+		$('#menu > li > a').removeClass('on');
+		$(obj).addClass('on');
+		var info=api_lists.apis[item];
+		$('#api-title').html(info.api_name);
+		$('#api-name').html(info.api_name);
+		$('#api-desc').html(info.api_desc);
+		$('#api-req-type').html(info.req_type);
+		$('#api-req-url').html(info.req_url);
+		var headerParams=requstParams=responseParmas='';
+		var n=x=y=1;
+		for(var i in info.hea_params){
+			headerParams+="<tr><td>"+n+"</td><td><code>";
+			headerParams+=info.hea_params[i].key+"</code></td><td><span>";
+			headerParams+=info.hea_params[i].type+"</span></td><td>";
+			headerParams+=info.hea_params[i].desc+"</td></tr>";
+			n+=1;
+		}
+
+		$('#api-header-params').html(headerParams);
+		$('#json-header-render').jsonViewer(info.hea_sample, {});
+		
+		
+		for(var i in info.req_params)
+		{
+			requstParams+="<tr><td>"+x+"</td><td><code>";
+			requstParams+=info.req_params[i].key+"</code></td><td><span>";
+			requstParams+=info.req_params[i].type+"</span></td><td>";
+			requstParams+=info.req_params[i].desc+"</td></tr>";
+			x+=1;
+		}
+		$('#api-request-params').html(requstParams);
+		$('#json-request-render').jsonViewer(info.req_sample, {});
+		
+		
+		for(var i in info.res_annotation)
+		{
+			responseParmas+="<tr><td>"+y+"</td><td><code>";
+			responseParmas+=info.res_annotation[i].key+"</code></td><td><span>";
+			responseParmas+=info.res_annotation[i].type+"</span></td><td>";
+			responseParmas+=info.res_annotation[i].desc+"</td></tr>";
+			y+=1;
+		}
+		$('#api-response-params').html(responseParmas);
+		$('#json-response-render').jsonViewer(info.res_sample, {});	
+	}
+	</script>
+</head>
+<body>
+	<div class="content">
+		<!-- 目录等 -->
+		<div class="content-left fl">
+			<div class="nav-title"><span><a href="#">目录</a></span></div>
+			<ul id='menu'>
+				
+			<ul>
+		</div>
+		<!-- API内容 -->
+		<div class="content-right scrollbar fl">
+		<div class="api">
+			<div class="api-title">
+				<div class="fl" id="api-title"></div>
+			</div>
+			<div class="api-content">
+				<div class="item">
+					<div class="bs-callout bs-callout-danger">
+						<p>名称：<span id="api-name"></span></p>
+						<p>描述：<span id="api-desc"></span></p>
+					</div>
+					<div class="bs-callout bs-callout-warning">
+						<p>请求类型：<span id="api-req-type"></span></p>
+						<p class="url">请求地址：<span id="api-req-url"></span></p>
+						<p>请求头:</p>
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th class="width33%">KEY</th>
+									<th class="width33%">类型</th>
+									<th class="width33%">说明</th>
+								</tr>
+							</thead>
+							<tbody id="api-header-params"></tbody>
+						</table>
+						<p>请求头实例：</p>
+						<pre class='json-renderer' id='json-header-render'></pre>
+						
+						
+						<p>请求体:</p>
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th class="width33%">KEY</th>
+									<th class="width33%">类型</th>
+									<th class="width33%">说明</th>
+								</tr>
+							</thead>
+							<tbody id="api-request-params"></tbody>
+						</table>
+						<p>请求体实例：</p>
+						<pre class='json-renderer' id='json-request-render'></pre>
+		
+		
+						<p>响应体说明:</p>
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th class="width33%">KEY</th>
+									<th class="width33%">类型</th>
+									<th class="width33%">说明</th>
+								</tr>
+							</thead>
+							<tbody id="api-response-params"></tbody>
+							<tbody id="api-response-params"></tbody>
+						</table>
+						<p>响应体实例：</p>
+						<pre class='json-renderer' id='json-response-render'></pre>
+						
+					</div>
+					<hr class="divider">
+				</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
