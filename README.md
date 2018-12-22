@@ -51,4 +51,4 @@ php Control.php move 接口下标 目标下标
 php Control.php help 操作
 ```
 ### UI
-![image](https://github.com/AaronAndreas/Offline-Api-Files/ui.png)
+![image](https://github.com/AaronAndreas/Offline-Api-Files/blob/v1/ui.png)
