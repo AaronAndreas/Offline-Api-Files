@@ -118,11 +118,11 @@ class Control
 	protected function add()
 	{
 		$this->arg5	=	json_decode($this->arg5) ? json_decode($this->arg5) : [];
-		$this->arg6	=	json_decode($this->arg6) ? json_decode($this->arg6) : new \stdClass();
+		$this->arg6	=	json_decode($this->arg6) ? json_decode($this->arg6) : [];
 		$this->arg7	=	json_decode($this->arg7) ? json_decode($this->arg7) : [];
-		$this->arg8	=	json_decode($this->arg8) ? json_decode($this->arg8) : new \stdClass();
+		$this->arg8	=	json_decode($this->arg8) ? json_decode($this->arg8) : [];
 		$this->arg9	=	json_decode($this->arg9) ? json_decode($this->arg9) : [];
-		$this->arg10=	json_decode($this->arg10) ? json_decode($this->arg10) : new \stdClass();
+		$this->arg10	=	json_decode($this->arg10) ? json_decode($this->arg10) : [];
 		$this->apis	=	self::readFile();
 		$this->apis[]=[
 			'api_name'			=>	$this->arg1,
@@ -239,6 +239,12 @@ class Control
 	
 	protected static function writeFile($apis)
 	{
+		$apis=array_map(function($v){
+			$v['hea_sample']	=	empty($v['hea_sample']) ? new \stdClass() : $v['hea_sample'];
+			$v['req_sample']	=	empty($v['req_sample']) ? new \stdClass() : $v['req_sample'];
+			$v['res_sample']	=	empty($v['res_sample']) ? new \stdClass() : $v['res_sample'];
+			return $v;
+		},$apis);
 		$fileContent	=	json_encode(['doc_name'=>self::DOC_NAME,'apis'=>$apis]);
 		file_put_contents(self::DOC_FILE,'var api_lists='.$fileContent);
 	}
