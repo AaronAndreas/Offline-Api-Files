@@ -166,18 +166,47 @@ class Control
 			$this->error='无此接口';
 			return false;
 		}
-		if(!isset($this->apis[$this->arg1]->$module))
+		if(!isset($this->apis[$this->arg1][$module]))
 		{
 			$this->error='无此模块';
 			return false;
+		}
+		if(in_array($module,['req_sample','hea_sample','res_sample']))
+		{
+			$this->arg3=json_decode($this->arg3);
+			if(!$this->arg3)
+			{
+				$this->error='参数错误';
+				return false;
+			}
+			return true;
+		}
+		if(in_array($module,['hea_params','req_params','res_annotation']))
+		{
+			$this->arg3	=	json_decode($this->arg3);
+			if(!is_array($this->arg3))
+			{
+				$this->error='参数错误';
+				return false;
+			}
+			if(empty($this->arg3))
+			{
+				return true;
+			}
+			if(!$this->validateParm($this->arg3))
+			{
+				$this->error='参数错误';
+				return false;
+			}
+			return true;
 		}
 		return true;
 	}
 	
 	protected function alter()
 	{
-		$module		=	$this->arg2;
-		$this->apis[$this->arg1]->$module=$this->arg3;
+		$module								=	$this->arg2;
+		$this->apis[$this->arg1][$module]	=	$this->arg3;
 		self::writeFile($this->apis);
 	}
 	

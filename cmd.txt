@@ -1,0 +1,20 @@
+php Control.php add 测试 测试接口 POST https://www.xx.com/v1/user/xxx '[]' '[]' '[]' '[]' '[]' '[]'
+php Control.php add 测试2 测试2接口 POST https://www.xx.com/v1/user/xxx '[]' '[]' '[]' '[]' '[]' '[]'
+php Control.php move 0 1
+php Control.php del 0
+php Control.php alter 0 api_name 测试3
+php Control.php alter 0 api_desc 测试3接口
+php Control.php alter 0 req_params '[]'
+php Control.php alter 0 req_params '[{"key":"xxx","desc":"dsadsad","type":"obj"}]'
+php Control.php alter 0 req_sample '{"res":"dsadsadsa"}'
+php Control.php alter 0 hea_params ''
+php Control.php alter 0 hea_params '[]'
+php Control.php alter 0 hea_params '[{"key":"xxx","desc":"dsadsad","type":"obj"}]'
+php Control.php alter 0 hea_sample '{}'
+php Control.php alter 0 hea_sample '{"res":"xxx"}'
+php Control.php alter 0 res_annotation ''
+php Control.php alter 0 res_annotation '[]'
+php Control.php alter 0 res_annotation '[{"key":"xxx","desc":"dsadsad","type":"obj"}]'
+php Control.php alter 0 res_sample ''
+php Control.php alter 0 res_sample '{}'
+php Control.php alter 0 res_sample '{"res":"xxx"}'
