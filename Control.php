@@ -122,7 +122,7 @@ class Control
 		$this->arg7	=	json_decode($this->arg7) ? json_decode($this->arg7) : [];
 		$this->arg8	=	json_decode($this->arg8) ? json_decode($this->arg8) : [];
 		$this->arg9	=	json_decode($this->arg9) ? json_decode($this->arg9) : [];
-		$this->arg10	=	json_decode($this->arg10) ? json_decode($this->arg10) : [];
+		$this->arg10=	json_decode($this->arg10) ? json_decode($this->arg10) : [];
 		$this->apis	=	self::readFile();
 		$this->apis[]=[
 			'api_name'			=>	$this->arg1,
